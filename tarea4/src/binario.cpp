@@ -19,7 +19,6 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include <util.h>
 // Representación de 'TBinario'.
 // Se debe definir en binario.cpp.
 // struct _rep_binario;
