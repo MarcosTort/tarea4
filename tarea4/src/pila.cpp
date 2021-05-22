@@ -1,27 +1,5 @@
-/*
-  Módulo de definición de 'TPila'.
-
-  Los elementos de tipo 'TPila' son estructuras lineales acotadas con
-  comportamiento LIFO cuyos elementos son naturales.
-
-  La cantidad de elementos que puede mantener se establece en el parámetro
-  de 'crearPila'.
-
-
-  Laboratorio de Programación 2.
-  InCo-FIng-UDELAR
- */
-
-#include "../include/utils.h"
-#include "../include/info.h"
-#include "../include/pila.h"
-
-// Representación de 'TPila'.
-// Se debe definir en pila.cpp.
-// struct _rep_pila;
-// Declaracióndel tipo 'TPila'
 struct _rep_pila{
-    nat** array;
+    nat* array;
     int cota;
     int tope;
 };
@@ -33,9 +11,9 @@ struct _rep_pila{
  */
 TPila crearPila(nat tamanio){
     TPila nuevo = new _rep_pila;
-    nuevo->cota = tamanio;
     nuevo->tope = 0;
-    nuevo->array = new nat*[tamanio];
+    nuevo->array = new nat[tamanio];
+    nuevo->cota = tamanio;
     return nuevo;
 }
 
@@ -47,10 +25,10 @@ TPila crearPila(nat tamanio){
  */
 TPila apilar(nat num, TPila p){
 if(!estaLlenaPila(p)){
-    *p->array[p->tope - 1] = num;
+    p->array[p->tope] = num;
     p->tope ++;
     }   
-    return p;
+return p;
 }
 /*
   Remueve de 'p' el elemento que está en la cima.
@@ -60,7 +38,8 @@ if(!estaLlenaPila(p)){
  */
 TPila desapilar(TPila p){
     if(!estaVaciaPila(p)){
-        delete[] p->array[p->tope-1];
+        nat * apuntador = & p->array[p->tope - 1];
+        delete[] apuntador ;
         p->tope--;
     }
     return p;
@@ -71,7 +50,8 @@ TPila desapilar(TPila p){
  */
 void liberarPila(TPila p){
     for (int i = 0; i < p->tope - 1;i++ ){
-        delete[] p->array[i];
+        nat * apuntador = & p->array[i];
+        delete[] apuntador;
     }
     delete[] p->array;
     delete p;
@@ -100,7 +80,8 @@ bool estaLlenaPila(TPila p){
   El tiempo de ejecución en el peor caso es O(1).
  */
 nat cima(TPila p){
-    return *p->array[p->tope - 1];
+    return p->array[p->tope - 1];
 }
 
+ 
  
