@@ -47,7 +47,7 @@ TPila crearPila(nat tamanio){
  */
 TPila apilar(nat num, TPila p){
 if(!estaLlenaPila(p)){
-    *p->array[p->tope] = num;
+    *p->array[p->tope - 1] = num;
     p->tope ++;
     }   
     return p;
