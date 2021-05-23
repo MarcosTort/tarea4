@@ -34,8 +34,20 @@ struct _rep_binario {
   Devuelve un 'TBinario' vacío (sin elementos).
   El tiempo de ejecución es O(1).
  */
+TBinario balanceado( nat n, nat i, TBinario b, ArregloNats elems){
+  if (i >=0 && i < n){
+  double real = 0;
+  TInfo raiz = crearInfo(elems[i/2], real);
+  insertarEnBinario(raiz, b);
+  b = balanceado(n, i*(3/2), derecho(b), elems);
+  b = balanceado(n, i*(1/2), derecho(b), elems);
+  printf("%i", i);
+  }return b;
+}
 TBinario binarioBalanceado(ArregloNats elems, nat n){
-  return NULL;
+  TBinario res = crearBinario();
+  return balanceado(n, n-1, res, elems);
+
 }
 TBinario crearBinario(){
   return NULL;
