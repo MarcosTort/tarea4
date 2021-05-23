@@ -2,6 +2,7 @@
 #include "../include/utils.h"
 #include "../include/colaBinarios.h"
 #include "stddef.h"
+#include"assert.h"
 // Representación de TColaBinarios'.
 // Se debe definir en colaBinarios.cpp
 // struct _rep_colaBinarios;
@@ -33,7 +34,10 @@ TColaBinarios crearColaBinarios(){
  */
 TColaBinarios encolar(TBinario b, TColaBinarios c){
   if(estaVaciaColaBinarios(c)){
-    c->primero->bin = c->ultimo->bin = b;
+    celda *nuevo = new celda;
+    nuevo->bin = b;
+    c->primero = c->ultimo =nuevo;
+    c->primero->sig = NULL;
   }
   else{
     celda *encolado = new celda;
@@ -51,15 +55,14 @@ TColaBinarios encolar(TBinario b, TColaBinarios c){
   NO libera la memoria del elemento removido.
   El tiempo de ejecución en el peor caso es O(1).
  */
+
 TColaBinarios desencolar(TColaBinarios c){
-  if(!estaVaciaColaBinarios(c)){
     celda *aux = c->primero;
     c->primero = c->primero->sig;
-    if (aux == c->ultimo){
-      c->primero = c->ultimo = NULL;
-    }
+    if(c->primero == NULL) 
+      c->ultimo = NULL;
+    aux ->sig = NULL;
     delete aux;
-  }
   return c;
 }
 
@@ -84,7 +87,7 @@ void liberarColaBinarios(TColaBinarios c){
  */
 bool estaVaciaColaBinarios(TColaBinarios c)
 {
-  return c->primero == NULL;
+  return ((c->primero == NULL) && (c->ultimo == NULL));
 }
 
 /*
@@ -93,6 +96,7 @@ bool estaVaciaColaBinarios(TColaBinarios c)
   El tiempo de ejecución en el peor caso es O(1).
  */
 TBinario frente(TColaBinarios c){
+  assert(c->primero != NULL);
   return c->primero->bin;
 }
 
