@@ -1,3 +1,26 @@
+/*
+  Módulo de definición de 'TPila'.
+
+  Los elementos de tipo 'TPila' son estructuras lineales acotadas con
+  comportamiento LIFO cuyos elementos son naturales.
+
+  La cantidad de elementos que puede mantener se establece en el parámetro
+  de 'crearPila'.
+
+
+  Laboratorio de Programación 2.
+  InCo-FIng-UDELAR
+ */
+
+#include "../include/utils.h"
+#include "../include/info.h"
+#include "../include/pila.h"
+
+// Representación de 'TPila'.
+// Se debe definir en pila.cpp.
+// struct _rep_pila;
+// Declaracióndel tipo 'TPila'
+typedef nat * apuntador;
 struct _rep_pila{
     nat* array;
     int cota;
@@ -38,8 +61,10 @@ return p;
  */
 TPila desapilar(TPila p){
     if(!estaVaciaPila(p)){
-        nat * apuntador = & p->array[p->tope - 1];
-        delete[] apuntador ;
+        apuntador *mem = new apuntador;
+        *mem = &p->array[p->tope - 1];
+
+        delete mem ;
         p->tope--;
     }
     return p;
@@ -50,8 +75,10 @@ TPila desapilar(TPila p){
  */
 void liberarPila(TPila p){
     for (int i = 0; i < p->tope - 1;i++ ){
-        nat * apuntador = & p->array[i];
-        delete[] apuntador;
+        apuntador *mem = new apuntador;
+        *mem = &p->array[p->tope - 1];
+        delete mem;
+        
     }
     delete[] p->array;
     delete p;
@@ -83,5 +110,4 @@ nat cima(TPila p){
     return p->array[p->tope - 1];
 }
 
- 
  
