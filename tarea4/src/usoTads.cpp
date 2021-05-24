@@ -64,13 +64,16 @@ TIterador enAlguno(TIterador a, TIterador b){
     while(estaDefinidaActual(a)&& estaDefinidaActual(b)){
       if(actualEnIterador(a) < actualEnIterador(b)){
         alguno = actualEnIterador(a);
+        if(mem != alguno)
         agregarAIterador(alguno, res);
         alguno = actualEnIterador(b);
+        if(mem != alguno)
         agregarAIterador(alguno, res);
         avanzarIterador(a);
       }
       else if(actualEnIterador(a) > actualEnIterador(b)){
         alguno = actualEnIterador(b);
+        if(mem != alguno)
         agregarAIterador(alguno, res);
         avanzarIterador(b);
       }else{
@@ -85,6 +88,7 @@ TIterador enAlguno(TIterador a, TIterador b){
       if(estaDefinidaActual(a)){
         while(estaDefinidaActual(a)){
           alguno = actualEnIterador(a);
+          if(mem != alguno)
           agregarAIterador(alguno, res);
           avanzarIterador(a);  
         }
@@ -92,6 +96,7 @@ TIterador enAlguno(TIterador a, TIterador b){
       if(estaDefinidaActual(b)){
         while(estaDefinidaActual(b)){
           alguno = actualEnIterador(b);
+          if(mem != alguno)
           agregarAIterador(alguno, res);
           avanzarIterador(b);  
         }
