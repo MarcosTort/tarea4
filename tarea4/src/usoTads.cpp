@@ -58,7 +58,7 @@ TIterador enAlguno(TIterador a, TIterador b){
     reiniciarIterador(a);
     reiniciarIterador(b);
     nat alguno;
-    nat mem;
+    nat mem = 0;
   if(estaDefinidaActual(a)&& estaDefinidaActual(b)){
    if(actualEnIterador(a) < actualEnIterador(b)){
         alguno = actualEnIterador(a);
