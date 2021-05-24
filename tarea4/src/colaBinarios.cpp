@@ -63,7 +63,9 @@ TColaBinarios desencolar(TColaBinarios c){
     }
     else{
     c->primero = c->primero->sig;
-    }delete aux;
+    }
+  aux->sig = NULL;
+  delete aux;
   return c;
 }
 
