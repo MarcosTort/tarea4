@@ -107,14 +107,16 @@ TIterador enAlguno(TIterador a, TIterador b){
         while(estaDefinidaActual(a)){
           alguno = actualEnIterador(a);
           agregarAIterador(alguno, res);
-          avanzarIterador(a);  
+          avanzarIterador(a); 
+	  mem = alguno;  
         }
       }
       if(estaDefinidaActual(b)){
         while(estaDefinidaActual(b)){
           alguno = actualEnIterador(b);
           agregarAIterador(alguno, res);
-          avanzarIterador(b);  
+          avanzarIterador(b);
+	  mem = alguno;  	
         }
       }
     return res;
