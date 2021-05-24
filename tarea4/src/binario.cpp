@@ -19,6 +19,8 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <math.h>
+//#include <util.h>
 // Representación de 'TBinario'.
 // Se debe definir en binario.cpp.
 // struct _rep_binario;
@@ -34,21 +36,29 @@ struct _rep_binario {
   Devuelve un 'TBinario' vacío (sin elementos).
   El tiempo de ejecución es O(1).
  */
-TBinario balanceado( nat n, nat i, TBinario b, ArregloNats elems){
-  if (i >=0 && i < n){
-  double real = 0;
-  TInfo raiz = crearInfo(elems[i/2], real);
-  insertarEnBinario(raiz, b);
-  b = balanceado(n, i*(3/2), derecho(b), elems);
-  b = balanceado(n, i*(1/2), derecho(b), elems);
-  printf("%i", i);
-  }return b;
+TBinario balanceado(int start, int end, ArregloNats elems){
+
+if(start > end)
+  return NULL;
+TBinario b = new _rep_binario;
+int elementoMedio = (start+end)/2;
+b->dato = crearInfo(elems[elementoMedio], 0.0);
+
+b->der = balanceado( elementoMedio + 1, end, elems);
+b->izq = balanceado( start, elementoMedio - 1, elems);
+  
+return b;
 }
 TBinario binarioBalanceado(ArregloNats elems, nat n){
-  TBinario res = crearBinario();
-  return balanceado(n, n-1, res, elems);
+  return balanceado(0, n-1, elems);
 
 }
+
+
+
+
+
+
 TBinario crearBinario(){
   return NULL;
 }
@@ -423,3 +433,4 @@ void imprimirBinario(TBinario b){
  imprimiraux(0, b);
  printf("\n");
 }//FALTA
+
