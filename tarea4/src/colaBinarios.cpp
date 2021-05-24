@@ -58,14 +58,14 @@ TColaBinarios encolar(TBinario b, TColaBinarios c){
 
 TColaBinarios desencolar(TColaBinarios c){
     celda *aux = c->primero;
-    if(c->primero->sig == NULL){
-      c->primero = c->ultimo = NULL;
+    if(!estaVaciaColaBinarios(c)){
+      c->primero =  c->primero->sig ;
+      if(aux->sig == NULL)
+        c->ultimo = NULL;
     }
-    else{
-    c->primero = c->primero->sig;
-    }
-  aux->sig = NULL;
-  delete aux;
+    aux->sig = NULL;
+    
+    delete aux;
   return c;
 }
 
