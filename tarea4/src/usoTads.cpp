@@ -272,48 +272,37 @@ TCadena nivelEnBinario(nat l, TBinario b){
   ordenar(ret);
   return ret;
 }
-bool esHoja(TBinario b){
-if (esVacioBinario(b)) {
-	return true;
-  } else {
-	return ((esVacioBinario(derecho(b))) && (esVacioBinario(izquierdo(b))));
-  }
+bool esHoja(TBinario b)
+{ // ?
+  bool esAlgo = (esVacioBinario(derecho(b))) && (esVacioBinario(izquierdo(b)));
+  return esVacioBinario(b) || esAlgo;
+  
 }
 
-void avanzarLoc(TLocalizador &loc, TCadena cad){
+void avanzarLoc(TLocalizador &loc, TCadena cad)
+{
   if (siguiente(loc, cad) != NULL)
-  loc = siguiente(loc, cad);
+    loc = siguiente(loc, cad);
 }
 
-
-
-bool aux(TLocalizador &l, TCadena c, TBinario b){
-  //si son vacios son iguales
- if (esVaciaCadena(c) && esVacioBinario(b)) return true;
-  //si solo uno es vacio entonces nunca hay camino
-  else if (esVaciaCadena(c) || esVacioBinario(b)) return false;
-  //compara el elemento de la cadena con el del arbol
-  else if (natInfo(raiz(b)) == natInfo(infoCadena(l, c))){
-  printf("El binario es ");
-  printf("%s", infoATexto(raiz(b)));
-  printf("\n");
-  return true;
+bool aux(TLocalizador l, TCadena c, TBinario b)
+{
+  if (c == NULL && b == NULL)
+    return true;
+  else if (c == NULL || b == NULL)
+  {
+    return false;
   }
-  else return false;
+  if(!esHoja(b)) return (natInfo(raiz(b)) == natInfo(infoCadena(l, c))) && (aux(siguiente(l, c), c, derecho(b)) || aux(siguiente(l, c), c, izquierdo(b)));
+  else return (natInfo(raiz(b)) == natInfo(infoCadena(l, c)));
 }
-bool aux2(TLocalizador &l,TCadena c,TBinario b){
-   bool ret = aux(l, c, b);
-  if(ret){
-    avanzarLoc(l, c);
-    ret = aux2(l, c, derecho(b)) || aux2(l, c, izquierdo(b));
-  }
-  else ret = false;
-  return ret;
+
+bool esCamino(TCadena c, TBinario b)
+{
+  TLocalizador loc = inicioCadena(c);
+  return aux(loc, c, b);
 }
-bool esCamino(TCadena c, TBinario b){
-  TLocalizador l = inicioCadena(c);
-  return aux2(l, c, b)&&esHoja(buscarSubarbol( natInfo( infoCadena( finalCadena(c), c) ) , b));
-}
+
 
 
 
