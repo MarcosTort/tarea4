@@ -106,7 +106,6 @@ TIterador enAlguno(TIterador a, TIterador b){
       if(estaDefinidaActual(a)){
         while(estaDefinidaActual(a)){
           alguno = actualEnIterador(a);
-          if(mem != alguno)
           agregarAIterador(alguno, res);
           avanzarIterador(a);  
         }
@@ -114,7 +113,6 @@ TIterador enAlguno(TIterador a, TIterador b){
       if(estaDefinidaActual(b)){
         while(estaDefinidaActual(b)){
           alguno = actualEnIterador(b);
-          if(mem != alguno)
           agregarAIterador(alguno, res);
           avanzarIterador(b);  
         }
