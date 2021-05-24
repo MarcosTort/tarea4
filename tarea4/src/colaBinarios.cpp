@@ -33,18 +33,16 @@ TColaBinarios crearColaBinarios(){
   El tiempo de ejecución en el peor caso es O(1).
  */
 TColaBinarios encolar(TBinario b, TColaBinarios c){
-  if(estaVaciaColaBinarios(c)){
     celda *nuevo = new celda;
     nuevo->bin = b;
+    nuevo->sig = NULL;
+  if(estaVaciaColaBinarios(c)){
     c->primero = c->ultimo =nuevo;
-    c->primero->sig = NULL;
   }
   else{
-    celda *encolado = new celda;
-    encolado->bin = b;
-    encolado->sig = c->ultimo;
-    c->ultimo = encolado;
-  }
+    c->ultimo->sig = nuevo;
+    }
+    c->ultimo = nuevo;
   return c;
 }
 
