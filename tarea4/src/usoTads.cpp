@@ -59,8 +59,26 @@ TIterador enAlguno(TIterador a, TIterador b){
     reiniciarIterador(b);
     nat alguno;
     nat mem;
-   
-    
+  if(estaDefinidaActual(a)&& estaDefinidaActual(b)){
+   if(actualEnIterador(a) < actualEnIterador(b)){
+        alguno = actualEnIterador(a);
+        agregarAIterador(alguno, res);
+        alguno = actualEnIterador(b);
+        agregarAIterador(alguno, res);
+        avanzarIterador(a);
+      }
+      else if(actualEnIterador(a) > actualEnIterador(b)){
+        alguno = actualEnIterador(b);
+        agregarAIterador(alguno, res);
+        avanzarIterador(b);
+      }else{
+        alguno = actualEnIterador(b);
+        agregarAIterador(alguno, res); 
+        avanzarIterador(b);
+        avanzarIterador(a);
+      }
+       mem = alguno;
+    }
     while(estaDefinidaActual(a)&& estaDefinidaActual(b)){
       if(actualEnIterador(a) < actualEnIterador(b)){
         alguno = actualEnIterador(a);
@@ -79,11 +97,11 @@ TIterador enAlguno(TIterador a, TIterador b){
       }else{
         alguno = actualEnIterador(b);
         if(mem != alguno)
-          agregarAIterador(alguno, res); 
+         agregarAIterador(alguno, res); 
         avanzarIterador(b);
         avanzarIterador(a);
       }
-       mem = alguno;
+      mem = alguno;
       }
       if(estaDefinidaActual(a)){
         while(estaDefinidaActual(a)){
