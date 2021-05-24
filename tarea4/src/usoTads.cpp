@@ -3,11 +3,14 @@
 #include "../include/info.h"
 #include "../include/utils.h"
 #include "../include/binario.h"
+#include "../include/pila.h"
+#include "../include/colaBinarios.h"
 #include <stddef.h>
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
 #include "../include/iterador.h"
+#include "limits.h"
 
 /*
   Devuelve 'true' si y solo si en 'cad' hay un elemento cuyo campo natural es
@@ -194,8 +197,43 @@ TIterador soloEnA(TIterador a, TIterador b){
 
   Ver más ejemplos en el caso 06.
  */
+
+void aux( TBinario b, TIterador res){
+  if( !esVacioBinario(b)){
+    TPila s = crearPila(alturaBinario(b) + cantidadBinario(b));
+    TColaBinarios q = crearColaBinarios();
+    q = encolar(b, q);
+    q = encolar(NULL, q);
+    while(!estaVaciaColaBinarios(q)){
+      b = frente(q);
+      q = desencolar(q);
+      if(b == NULL && !estaVaciaColaBinarios(q)){
+        q = encolar(NULL, q);
+        s = apilar(UINT_MAX, s);
+       
+      }else if (b != NULL){
+      
+      s = apilar(natInfo(raiz(b)), s);
+      if(derecho(b) != NULL)
+        q = encolar(derecho(b), q); 
+      if(izquierdo(b) != NULL)
+        q = encolar(izquierdo(b), q);
+      }
+      
+    }
+    liberarColaBinarios(q);
+  while(!estaVaciaPila(s)){
+    res = agregarAIterador(cima(s), res);
+    s = desapilar(s);
+  }
+  liberarPila(s);
+  }
+}
+
 TIterador recorridaPorNiveles(TBinario b){
-    return NULL;
+    TIterador res = crearIterador();
+    aux(b, res);
+   return res;
 }
 
 /*
@@ -489,3 +527,4 @@ TCadena subCadena(nat menor, nat mayor, TCadena cad){
   insertarSegmentoDespues(copiarSegmento(inicioSub, finalSub, cad ), finalCadena(sub), sub);
 return sub;
 }
+
