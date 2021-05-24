@@ -54,64 +54,49 @@ bool esMayor(TIterador it2, TIterador it){
   return actualEnIterador(it2) > actualEnIterador(it);
 }
 TIterador enAlguno(TIterador a, TIterador b){
+    TIterador res = crearIterador();
     reiniciarIterador(a);
     reiniciarIterador(b);
-    TIterador nuevo = crearIterador();
-    reiniciarIterador(nuevo);
-    nat aux;
-    nat control;
-    //while avanza mientras al menos un iterador no se termine
-    while(estaDefinidaActual(a)||estaDefinidaActual(b)){
-      // a no itera mas pero b si
-      if(!estaDefinidaActual(a)&&estaDefinidaActual(b)){
-        aux = actualEnIterador(b);
-        if(control != aux)
-          agregarAIterador(aux, nuevo);
-        avanzarIterador(b);
-      }
-      //b no itera mas pero a si
-      else if(!estaDefinidaActual(b) && estaDefinidaActual(a)){
-        aux = actualEnIterador(a);
-        if(control != aux)
-          agregarAIterador(aux, nuevo);
+    nat alguno;
+    nat mem;
+   
+    
+    while(estaDefinidaActual(a)&& estaDefinidaActual(b)){
+      if(actualEnIterador(a) < actualEnIterador(b)){
+        alguno = actualEnIterador(a);
+        agregarAIterador(alguno, res);
+        alguno = actualEnIterador(b);
+        agregarAIterador(alguno, res);
         avanzarIterador(a);
+      }
+      else if(actualEnIterador(a) > actualEnIterador(b)){
+        alguno = actualEnIterador(b);
+        agregarAIterador(alguno, res);
+        avanzarIterador(b);
       }else{
-        //ambos estan iterando
-        // elemento de b mayor que a
-        if(esMayor(b, a)){
-        aux = actualEnIterador(a);
-        if(control != aux)
-          agregarAIterador(aux, nuevo);
-        aux = actualEnIterador(b);
-        if(control != aux)
-          agregarAIterador(aux, nuevo);
+        alguno = actualEnIterador(b);
+        if(mem != alguno)
+          agregarAIterador(alguno, res); 
         avanzarIterador(b);
         avanzarIterador(a);
       }
-      //elemento de a mayor que b
-      else if(esMayor(a, b)){
-        aux = actualEnIterador(b);
-        if(control != aux)
-          agregarAIterador(aux, nuevo);
-        aux = actualEnIterador(a);
-        if(control != aux)
-          agregarAIterador(aux, nuevo);
-        avanzarIterador(b);
-        avanzarIterador(a);
+       mem = alguno;
       }
-      //ambos elementos son iguales
-      else{
-
-        aux = actualEnIterador(b);
-        if(control != aux)
-          agregarAIterador(aux, nuevo);
-        avanzarIterador(b);
-        avanzarIterador(a);
+      if(estaDefinidaActual(a)){
+        while(estaDefinidaActual(a)){
+          alguno = actualEnIterador(a);
+          agregarAIterador(alguno, res);
+          avanzarIterador(a);  
+        }
       }
-    }
-    control = aux;
-  }
-  return nuevo;
+      if(estaDefinidaActual(b)){
+        while(estaDefinidaActual(b)){
+          alguno = actualEnIterador(b);
+          agregarAIterador(alguno, res);
+          avanzarIterador(b);  
+        }
+      }
+    return res;
 }
 
 void imprimirIterador(TIterador it){
