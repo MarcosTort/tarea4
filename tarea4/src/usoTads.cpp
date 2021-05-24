@@ -287,14 +287,13 @@ void avanzarLoc(TLocalizador &loc, TCadena cad)
 
 bool aux(TLocalizador l, TCadena c, TBinario b)
 {
-  if (c == NULL && b == NULL)
+  if (l == NULL && b == NULL)
     return true;
-  else if (c == NULL || b == NULL)
+  else if (l == NULL || b == NULL)
   {
     return false;
   }
-  if(!esHoja(b)) return (natInfo(raiz(b)) == natInfo(infoCadena(l, c))) && (aux(siguiente(l, c), c, derecho(b)) || aux(siguiente(l, c), c, izquierdo(b)));
-  else return (natInfo(raiz(b)) == natInfo(infoCadena(l, c)));
+  return (natInfo(raiz(b)) == natInfo(infoCadena(l, c))) && (aux(siguiente(l, c), c, derecho(b)) || aux(siguiente(l, c), c, izquierdo(b)));
 }
 
 bool esCamino(TCadena c, TBinario b)
