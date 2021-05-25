@@ -188,33 +188,35 @@ bool esVacioBinario(TBinario b){return b == NULL;}//LISTO
   Cada nodo se puede visitar una sola vez.
   El tiempo de ejecución es O(n), siendo 'n' la cantidad de elementos de 'b'.
  */
-static int absolut(int n){
+   int absolut(int n){
   return (n>=0) ? (n) : (-n);
 }
-bool esAvl(TBinario b);
-bool esAvl(TBinario b){
-bool aux = true;
-  if (b == NULL)
-  return true;
 
-  else if (b->izq== NULL && b->der==NULL)
-  return true;
+ int check_AVL(TBinario b) {
+	if (b == NULL) {
+		return 0;
+	}
+  int der = check_AVL(b->der);
+	if (der == -1) {
+		return -1;
+	}
 
-  else if (b->izq != NULL && b->der==NULL)
-  aux = (alturaBinario(b->izq) < 2);
-  else if (b->izq == NULL && b->der!=NULL)
-  aux = (alturaBinario(b->der) < 2);
- else {
- //los dos son no nulos
-  if (absolut(alturaBinario(b->izq) - alturaBinario(b->der))>1 ){
-  
-  return false;
-  }
+	int izq = check_AVL(b->izq);
+	if (izq == -1) {
+		return -1;
+	}
 
- else aux = (esAvl(b->izq) && esAvl(b->der));
+	if ( absolut(izq - der) > 1) {
+		return -1;
+	}
+
+	return (1 + ((izq>=der)?izq:der ));
+
 }
-if(alturaBinario(b->izq) == alturaBinario(b->der)) aux = true;
-return aux;
+bool esAvl(TBinario b){
+  int resp = check_AVL(b);
+  if (resp < 0) return false;
+  else return true;
 }
 
 /*
